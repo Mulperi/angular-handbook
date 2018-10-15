@@ -22,14 +22,16 @@ Single page application or SPA is a web page/application that offers a desktop a
 - Routing
 - Store
 
-# Decorator
+## Decorator
 
-Decorator and it's metadata tells Angular what to do with the class: is it a component, a module or a service etc.
+A decorator and it's metadata tells Angular what to do with the class: is it a component, a module or a service etc.
+
+Example of different kinds of decorators:
 
     @NgModule({
         declarations: [AppComponent],
         imports: [BrowserModule]
-        bootstrap: [AppComponent]
+        bootstrap: [AppComponent] // Only for root module
     }) 
     Export class AppModule {}
 
@@ -45,13 +47,37 @@ Decorator and it's metadata tells Angular what to do with the class: is it a com
     })
     Export class MyDataService {}
 
-# Component and a view
+## Module
+
+Angular applications always have at least 1 module (root module). Modules can import other modules and declare components they are going to use. Modules are classes with @NgModule() decorator and .module.ts file extension.
+
+If you have a large application, you can split features into modules and load them "lazily" - in other words, only when a user selects the feature. This way your application load time is smaller. Only load modules that are needed.
+
+## Component and a view
 
 - A component defines part of the application logic in it’s class
 - A template defines component’s view
 - A template is regular HTML with Angular template-syntax
 - A component is it’s __.ts__, __.html__ and __.scss__ files
 - .ts (class and component logic) & .html (template) & .scss (styles)
+
+## Service
+
+A service is a class with distinct purpose. A component delegates certain actions to a service. Like getting data from a server for example. If you are using a store in your application you usually want to call service from an __effect__ and not from the component.
+
+A service is a class with @Injectable() decorator. In it's metadata you tell Angular where you want to provide the service. 
+
+    @Injectable({
+         providedIn: 'root'
+    })
+    export class DataService {}
+
+When Angular creates an instance of a component, it checks the component constructor function for what dependencies it needs. This is dependency injection.
+
+    @Component({...})
+    export class AppComponent {
+        constructor(private service: DataService) { }
+    }
 
 # Folder structure
 
@@ -106,7 +132,7 @@ Angular router enables you to navigate between views. Router takes the URL and n
 # Observable
 
 - RxJS - A JavaScript library for reactive programming using observables
-- Observable - A way to communicate between two parties: publisher ja subscriber
+- Observable - A way to communicate between two parties: publisher and subscriber
 - Asynchronous, temporary or never ending stream which can emit many values over time
 - Operators - tools to modify the stream like combine or concatenate several data streams for example
 - In Angular, HTTP-requests return an observable that can be subscribed and only then is the request actually made
@@ -139,7 +165,21 @@ For an application that utilizes ngrx/Store use Chrome extension called Redux De
 
  # ngrx/Store
 
- ngrx/Store is a Redux inspired (https://redux.js.org/introduction) state management for Angular. In a more complex application it's preferred to use something like ngrx to manage the state of the application. 
+ ngrx/Store is a Redux inspired (https://redux.js.org/introduction) state management for Angular. In a larger application it is preferred to use something like ngrx to manage the state of the application.
+ 
+ This additional layer of abstraction of the state helps to keep the code clean and prevents too complex communication "chains" where components pass data to child components. 
+ 
+ For example, normally you would pass the data down to a child component with property binding like this:
+    
+    <child-component [data]="data"></child-component>
+
+With store, you dispatch an action in the parent component that updates the state with the data. In the child component you subscribe to the particular "slice" of the state that holds the data that component is interested in.
+
+- Action
+- Reducer
+- Effect
+- Selector
+- Entity
 
 # Good practices
 
