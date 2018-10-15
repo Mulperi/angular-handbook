@@ -1,6 +1,6 @@
 # Mulperi's Angular Handbook
 
-Learn Angular basics quickly. This documentation is a work in progress and meant to be used in Angular training.
+Learn Angular basics quickly. This documentation is a work in progress and meant to be used when training new Angular developers along with the official documentation, examples and exercices.
 
 # What is Angular?
 
@@ -20,7 +20,7 @@ Single page application or SPA is a web page/application that offers a desktop a
 - Template
 - Service
 - Routing
-- Store
+- Store (optional)
 
 ## Decorator
 
@@ -79,7 +79,7 @@ A service is a class with @Injectable() decorator. In it's metadata you tell Ang
     })
     export class DataService {}
 
-When Angular creates an instance of a component, it checks the component constructor function for what dependencies the component needs. This is dependency injection.
+When Angular creates an instance of a component, it checks the component constructor function for what dependencies the component needs. This is dependency injection: the component is depending on the service to be able to construct itself.
 
     @Component({...})
     export class AppComponent {
@@ -138,22 +138,36 @@ Pipes alter values in the template like date for example
 
 Angular router enables you to navigate between views. Router takes the URL and navigates to corresponding component. Routing can be integrated to the root module in a simple application or it can be taken to it's own routing module which is usually preferred.
 
+You can also route to a lazily loaded module that has it's own routing configurations.
+
 # Observable
+
+Reactive programming is handling asynchronous data streams which can emit many values over time. You can create a stream from almost anything.
+
+In Angular, HTTP-requests return an observable that can be subscribed and only then is the request actually made
+
+The selectors in ngrx/Store also return observables from the state tree. This way when your components subscribe to state changes, you can immediately see data change in the state reflecting to the component and the view.
 
 - RxJS - A JavaScript library for reactive programming using observables
 - Observable - A way to communicate between two parties: publisher and subscriber
-- Asynchronous, temporary or never ending stream which can emit many values over time
 - Operators - tools to modify the stream like combine or concatenate several data streams for example
-- In Angular, HTTP-requests return an observable that can be subscribed and only then is the request actually made
+
 
 Read more about RxJS and observables below.
 - RxJS Overview: https://rxjs-dev.firebaseapp.com/guide/overview
 - Observables: https://rxjs-dev.firebaseapp.com/guide/observable
 
 # Tools
+
+Getting an Angular app running is very easy. Install the following tools to start development.
+
+- Chrome & Redux Devtools extension
+- Node.js (& npm)
+- Angular CLI
+
 ## Node.js and npm
 
-Angular uses npm - "world's largest software registry" - for dependency management. First install Node.js.
+Angular uses npm - "world's largest software registry" - for dependency management. First install Node.js to get access to npm.
 
     http://nodejs.com/
 
@@ -176,7 +190,18 @@ For an application that utilizes ngrx/Store use Chrome extension called Redux De
 
  ngrx/Store is a Redux inspired (https://redux.js.org/introduction) state management for Angular. In a larger application it is preferred to use something like ngrx to manage the state of the application.
  
- This additional layer of abstraction of the state helps to keep the code clean and prevents too complex communication "chains" where components pass data to child components. 
+ Imagine the application state as a JavaScript object (key-value pairs) or a tree-like structure. Each key or branch in the state tree is a slice or feature of the state.
+
+ In addition to the state object, the store consists of:
+
+- Actions
+- Reducers
+- Effects
+- Selectors
+
+## Why store?
+
+ One of the main benefits of the store is that the application state is in one place and is abstracted. This additional layer of abstraction of the state helps to keep the code clean and prevents too complex communication "chains" where components pass data to child components. 
  
  For example, normally you would pass the data down to a child component with property binding like this:
     
@@ -186,12 +211,18 @@ With store, you dispatch an action in the parent component that updates the stat
 
 __There is nothing wrong with property binding or emitting events to parent component! But if it's happening a lot, it may reduce the ability to reuse your components.__
 
-In addition to the state object, the store consists of:
+## Updating application state
 
-- Actions
-- Reducers
-- Effects
-- Selectors
+To update the state, you dispatch an __action__. __Reducer__ listens to actions and return a new state if needed.
+
+__Effects__ also listen to actions and do asynchronous tasks on the background. Like getting data from the server for example. Effects usually return new actions like "DATA_LOAD_SUCCESS".
+
+With __selectors__ you define wich part of the state tree you want to subscsribe to.
+
+    ngrx/Store data flow (roughly)
+    
+    Action > Reducer > Store > View
+           > Effect > Service > Action > Reducer > Store > View
 
 # Good practices
 
