@@ -49,14 +49,15 @@ Example of different kinds of decorators:
 
 ## Module
 
-Angular applications always have at least 1 module (root module). Modules can import other modules and declare components they are going to use. Modules are classes with @NgModule() decorator and .module.ts file extension.
+Angular applications always have at least one module (root module). Modules can import other modules and declare components they are going to use. Modules are classes with @NgModule() decorator and .module.ts file extension.
 
-If you have a large application, you can split features into modules and load them "lazily" - in other words: only when an user selects the feature. This way your application's initial loading time is smaller. It is good practice to only load modules that are needed.
+If you have a large application, you can split features into modules and load them "lazily" - in other words: only when an user selects the feature. This greatly reduces your application's initial loading time. It is good practice to only load modules that are needed.
 
 ## Component and a view
 
 Components are reusable custom elements you throw in the html. You define a component's selector (element name in the html-template) in the component decorator metadata. You can change the component selector prefix inside angular.json settings file, it's app by default.
 
+    <!-- app.component.ts -->
     <app-header></app-header>
     <app-item-list></app-item-list>
     <app-footer></app-footer>
@@ -78,7 +79,7 @@ A service is a class with @Injectable() decorator. In it's metadata you tell Ang
     })
     export class DataService {}
 
-When Angular creates an instance of a component, it checks the component constructor function for what dependencies it needs. This is dependency injection.
+When Angular creates an instance of a component, it checks the component constructor function for what dependencies the component needs. This is dependency injection.
 
     @Component({...})
     export class AppComponent {
@@ -118,6 +119,8 @@ Example code with data binding:
     INTERPLATION:       <li>{{ hero.nam e}}</li>
     PROPERTY BINDING:   <app-hero-detail [hero]="selectedHero"></app-hero-detail>
     EVENT BINDING:      <li (click)="selectHero(hero)"></li>
+
+# Input() and Output()
 
 # Directives and pipes
 
@@ -181,11 +184,17 @@ For an application that utilizes ngrx/Store use Chrome extension called Redux De
 
 With store, you dispatch an action in the parent component that updates the state with the data. In the child component you subscribe to the particular "slice" of the state that holds the data that component is interested in.
 
-- Action
-- Reducer
-- Effect
-- Selector
-- Entity
+__There is nothing wrong with property binding or emitting events to parent component! But if it's happening a lot, it may reduce the ability to reuse your components.__
+
+In addition to the state object, the store consists of:
+
+- Actions
+- Reducers
+- Effects
+- Selectors
 
 # Good practices
+
+- Separating container and presentational components
+- Block Element Modifier naming convention for CSS classes (http://getbem.com/introduction/)
 
