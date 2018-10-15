@@ -6,8 +6,8 @@ Learn Angular basics quickly. This documentation is a work in progress and meant
 
 Angular is a rapidly evolving JavaScript framework/platform for modern web application development. It is open source and led by Google's Angular Team. To be able to understand and do Angular development, you should know the basics of HTML, CSS and JavaScript.
 
-- https://angular.io/
-- TypeScript/JavaScript, HTML, CSS/SCSS
+-   https://angular.io/
+-   TypeScript/JavaScript, HTML, CSS/SCSS
 
 # Single Page Application
 
@@ -15,12 +15,12 @@ Single page application or SPA is a web page/application that offers a desktop a
 
 # Building blocks of an Angular app
 
-- Module
-- Component
-- Template
-- Service
-- Routing
-- Store (optional)
+-   Module
+-   Component
+-   Template
+-   Service
+-   Routing
+-   Store (optional)
 
 ## Decorator
 
@@ -32,7 +32,7 @@ Example of different kinds of decorators:
         declarations: [AppComponent],
         imports: [BrowserModule]
         bootstrap: [AppComponent] // Only for root module
-    }) 
+    })
     Export class AppModule {}
 
     @Component({
@@ -62,17 +62,17 @@ Components are reusable custom elements you throw in the html. You define a comp
     <app-item-list></app-item-list>
     <app-footer></app-footer>
 
-- A component defines part of the application logic in it’s class
-- A template defines component’s view
-- A template is regular html with Angular template-syntax
-- A component is it’s __.ts__, __.html__ and __.scss__ files
-- .ts (class and component logic) & .html (template) & .scss (styles)
+-   A component defines part of the application logic in it’s class
+-   A template defines component’s view
+-   A template is regular html with Angular template-syntax
+-   A component is it’s **.ts**, **.html** and **.scss** files
+-   .ts (class and component logic) & .html (template) & .scss (styles)
 
 ## Service
 
-A service is a class with distinct purpose. A component delegates certain actions to a service. Like getting data from a server for example. If you are using a store in your application you usually want to call service from an __effect__ and not from the component.
+A service is a class with distinct purpose. A component delegates certain actions to a service. Like getting data from a server for example. If you are using a store in your application you usually want to call service from an **effect** and not from the component.
 
-A service is a class with @Injectable() decorator. In it's metadata you tell Angular where you want to provide the service. 
+A service is a class with @Injectable() decorator. In it's metadata you tell Angular where you want to provide the service.
 
     @Injectable({
          providedIn: 'root'
@@ -88,10 +88,10 @@ When Angular creates an instance of a component, it checks the component constru
 
 # Folder structure
 
-- Divide components to __Container components__ and __Presentational components__
-- Container-components take care of the logic of a view
-- Presentational components take care of how a view looks
-- Makes it easier to maintain code and find a specific application logic
+-   Divide components to **Container components** and **Presentational components**
+-   Container-components take care of the logic of a view
+-   Presentational components take care of how a view looks
+-   Makes it easier to maintain code and find a specific application logic
 
 An example of a project directory
 
@@ -109,10 +109,10 @@ An example of a project directory
 
 Data binding is a way to reflect data changes in one place to another place. There are few different kinds of data binding with each having it's own syntax.
 
-- Interpolation – Bind component data to template __{{data}}__
-- Property binding – Bind component data to an element property, send data to child component __[property]__
-- Event binding – Bind component to react a user event like mouse click or custom event __(event)__
-- Two-way binding – Component reacts to template event and also the template reflects what is happening in the component’s TypeScript-file __[(data)]__
+-   Interpolation – Bind component data to template **{{data}}**
+-   Property binding – Bind component data to an element property, send data to child component **[property]**
+-   Event binding – Bind component to react a user event like mouse click or custom event **(event)**
+-   Two-way binding – Component reacts to template event and also the template reflects what is happening in the component’s TypeScript-file **[(data)]**
 
 Example code with data binding:
 
@@ -125,7 +125,7 @@ Example code with data binding:
 # Directives and pipes
 
 Directives modify the template dynamically. They are classes with @Directive() decorator. You can create your own directives or use Angular's default ones like *ngFor or *ngIf.
-Structural directives alter the DOM and are marked with *.
+Structural directives alter the DOM and are marked with \*.
 
     <li *ngFor="let item of items">{{ item.name }}</li>
     <app-item-details *ngIf="itemSelected"></app-item-details>
@@ -148,22 +148,22 @@ In Angular, HTTP-requests return an observable that can be subscribed and only t
 
 The selectors in ngrx/Store also return observables from the state tree. This way when your components subscribe to state changes, you can immediately see data change in the state reflecting to the component and the view.
 
-- RxJS - A JavaScript library for reactive programming using observables
-- Observable - A way to communicate between two parties: publisher and subscriber
-- Operators - tools to modify the stream like combine or concatenate several data streams for example
-
+-   RxJS - A JavaScript library for reactive programming using observables
+-   Observable - A way to communicate between two parties: publisher and subscriber
+-   Operators - tools to modify the stream like combine or concatenate several data streams for example
 
 Read more about RxJS and observables below.
-- RxJS Overview: https://rxjs-dev.firebaseapp.com/guide/overview
-- Observables: https://rxjs-dev.firebaseapp.com/guide/observable
+
+-   RxJS Overview: https://rxjs-dev.firebaseapp.com/guide/overview
+-   Observables: https://rxjs-dev.firebaseapp.com/guide/observable
 
 # Tools
 
 Getting an Angular app running is very easy. Install the following tools to start development.
 
-- Chrome & Redux Devtools extension
-- Node.js (& npm)
-- Angular CLI
+-   Chrome & Redux Devtools extension
+-   Node.js (& npm)
+-   Angular CLI
 
 ## Node.js and npm
 
@@ -186,46 +186,99 @@ For an application that utilizes ngrx/Store use Chrome extension called Redux De
 
     https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
 
- # ngrx/Store
+# Exercises
 
- ngrx/Store is a Redux inspired (https://redux.js.org/introduction) state management for Angular. In a larger application it is preferred to use something like ngrx to manage the state of the application.
- 
- Imagine the application state as a JavaScript object (key-value pairs) or a tree-like structure. Each key or branch in the state tree is a slice or feature of the state.
+## Exercise 1
 
- In addition to the state object, the store consists of:
+-   Get to know the tools
+-   Create new Angular project
+-   Study the boilerplate (root folder, config files)
+-   Study a module and a component
+-   Generate a new component manually or with CLI and use the component
+-   Import and declare components in a module from a “barrell” file
 
-- Actions
-- Reducers
-- Effects
-- Selectors
+## Exercise 2
+
+-   Create new service
+-   Create mock data (JSON) in to assets folder and request it with HttpClient inside the service
+-   Use event binding in a component
+-   Use service inside a component
+-   Subscribe to a observable inside a component or a template and compare the differences (remember to unsubscribe if you subscribe in component)
+-   Use structural directives *ngFor and *ngIf
+-   Use conditional styling in a template [class.active]="boolean”
+
+## Exercise 3
+
+-   Try communication between components using @Input and @Output
+-   Use property binding to send data to a child component
+-   Use EventEmitter to emit a custom event and react to it in the parent component
+-   Study observable: https://rxjs-dev.firebaseapp.com/guide/observable
+
+## Exercise 4
+
+-   Build a routing
+-   Test a route guard
+-   Create a module that is lazily loaded
+
+# i18n
+
+## Exercise
+
+-   Study i18n
+
+Extract the translation file and run development server with language configuration:
+
+    ng xi18n --i18n-locale fr --output-path src/locale
+    ng serve --configuration=fr --aot
+
+# ngrx/Store
+
+ngrx/Store is a Redux inspired (https://redux.js.org/introduction) state management for Angular. In a larger application it is preferred to use something like ngrx to manage the state of the application.
+
+Imagine the application state as a JavaScript object (key-value pairs) or a tree-like structure. Each key or branch in the state tree is a slice or feature of the state.
+
+In addition to the state object, the store consists of:
+
+-   Actions
+-   Reducers
+-   Effects
+-   Selectors
 
 ## Why store?
 
- One of the main benefits of the store is that the application state is in one place and is abstracted. This additional layer of abstraction of the state helps to keep the code clean and prevents too complex communication "chains" where components pass data to child components. 
- 
- For example, normally you would pass the data down to a child component with property binding like this:
-    
-    <child-component [data]="data"></child-component>
+One of the main benefits of the store is that the application state is in one place and is abstracted. This additional layer of abstraction of the state helps to keep the code clean and prevents too complex communication "chains" where components pass data to child components.
+
+For example, normally you would pass the data down to a child component with property binding like this:
+
+<child-component [data]="data"></child-component>
 
 With store, you dispatch an action in the parent component that updates the state with the data. In the child component you subscribe to the particular "slice" of the state that holds the data that component is interested in.
 
-__There is nothing wrong with property binding or emitting events to parent component! But if it's happening a lot, it may reduce the ability to reuse your components.__
+**There is nothing wrong with property binding or emitting events to parent component! But if it's happening a lot, it may reduce the ability to reuse your components.**
 
 ## Updating application state
 
-To update the state, you dispatch an __action__. __Reducer__ listens to actions and return a new state if needed.
+To update the state, you dispatch an **action**. **Reducer** listens to actions and return a new state if needed.
 
-__Effects__ also listen to actions and do asynchronous tasks on the background. Like getting data from the server for example. Effects usually return new actions like "DATA_LOAD_SUCCESS".
+**Effects** also listen to actions and do asynchronous tasks on the background. Like getting data from the server for example. Effects usually return new actions like "DATA_LOAD_SUCCESS".
 
-With __selectors__ you define wich part of the state tree you want to subscsribe to.
+With **selectors** you define wich part of the state tree you want to subscsribe to.
 
     ngrx/Store data flow (roughly)
-    
+
     Action > Reducer > Store > View
            > Effect > Service > Action > Reducer > Store > View
 
+## Excercise
+
+    npm i @ngrx/store @ngrx/router-store @ngrx/effects @ngrx/store-devtools ngrx-store-freeze
+
+-   Install Chrome Redux DevTools extension https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+-   Study the ngrx packages and how to apply them to your Angular project https://github.com/ngrx/store
+-   Build a Store and make sure that router-reducer can be seen in the state with DevTools
+-   Make a new branch (feature) to the state and actions, reducer, effects and selectors to it
+
 # Good practices
 
-- Separating container and presentational components
-- Block Element Modifier naming convention for CSS classes (http://getbem.com/introduction/)
-
+-   Separating container and presentational components
+-   Block Element Modifier naming convention for CSS classes (http://getbem.com/introduction/)
