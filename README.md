@@ -51,13 +51,19 @@ Example of different kinds of decorators:
 
 Angular applications always have at least 1 module (root module). Modules can import other modules and declare components they are going to use. Modules are classes with @NgModule() decorator and .module.ts file extension.
 
-If you have a large application, you can split features into modules and load them "lazily" - in other words, only when a user selects the feature. This way your application load time is smaller. Only load modules that are needed.
+If you have a large application, you can split features into modules and load them "lazily" - in other words: only when an user selects the feature. This way your application's initial loading time is smaller. It is good practice to only load modules that are needed.
 
 ## Component and a view
 
+Components are reusable custom elements you throw in the html. You define a component's selector (element name in the html-template) in the component decorator metadata. You can change the component selector prefix inside angular.json settings file, it's app by default.
+
+    <app-header></app-header>
+    <app-item-list></app-item-list>
+    <app-footer></app-footer>
+
 - A component defines part of the application logic in it’s class
 - A template defines component’s view
-- A template is regular HTML with Angular template-syntax
+- A template is regular html with Angular template-syntax
 - A component is it’s __.ts__, __.html__ and __.scss__ files
 - .ts (class and component logic) & .html (template) & .scss (styles)
 
