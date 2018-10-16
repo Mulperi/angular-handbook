@@ -4,20 +4,31 @@ Learn Angular basics quickly. This documentation is a work in progress and meant
 
 # What is Angular?
 
-Angular is a rapidly evolving JavaScript framework/platform for modern web application development. It is open source and led by Google's Angular Team. To be able to understand and do Angular development, you should know the basics of HTML, CSS and JavaScript.
+Angular is a rapidly evolving JavaScript framework/platform for modern web application development. It is open-source and led by Google's Angular Team. To be able to understand and do Angular development, you should know the basics of HTML, CSS and JavaScript.
 
--   https://angular.io/
--   TypeScript/JavaScript, HTML, CSS/SCSS
+The programming languages used in Angular development are TypeScript/JavaScript, HTML, CSS/SCSS.
 
 **Angular is not the same as AngularJS which is the first version of the framework and a whole different thing. When talking about just "Angular" we mean the latest version or Angular 2 and above.**
 
+-   https://angular.io/
+
+## TypeScript
+
+TypeScript is the programming language used in Angular development. It's open-source and maintained by Microsoft. TypeScript is a superset of JavaScript which means that basic JavaScript code is also valid TypeScript. TypeScript is transcompiled to JavaScript.
+
+> The biggest advantages of using TypeScript is the addition of static typing, even though it's optional and the ability to use advanced JavaScript features that are compiled down to a cross-browser friendly form. Basically you get cleaner code and catch error's early in development with TypeScript.
+
+-   https://www.typescriptlang.org/
+
 ## Angular vs others
 
-Angular is often compared to React, Vue.js or other UI libraries. One of the best arguments to go with Angular is that it is not just a library but a framework with all the tools you need to make your app from start to finish. It is "opinionated" in a way that you use all the tools Angular gives you like TypeScript language, Router, HttpClient for requests, RXjS and observables etc. You don't have to make these decisions yourself like with the lightweight libraries.
+Angular is often compared to React, Vue.js or other UI libraries. One of the best arguments to go with Angular is that it is not just a library but a framework with all the tools you need to make your app from start to finish. It is "opinionated" in a way that you use all the tools Angular gives you like TypeScript language, Angular Router, HttpClient, RXjS with observables etc. You don't have to make these decisions yourself like with the lightweight libraries.
 
 # Single Page Application
 
 Single page application or SPA is a web page/application that offers a desktop application-like user experience. The content is updated dynamically with JavaScript so there is no page reload when you switch to another page or sub page. This is what you make with Angular.
+
+-   https://en.wikipedia.org/wiki/Single-page_application
 
 # Building blocks of an Angular app
 
@@ -87,25 +98,25 @@ Below is an example of some child components in app.component.html (the parent):
 Example of a simple component.ts file with @Component() decorator:
 
     @Component({
-        selector: "myapp-userlist",
-        templateUrl: "./userlist.component.html",
-        styleUrls: ["./userlist.component.scss"]
+        selector: "app-item-list",
+        templateUrl: "./item-list.component.html",
+        styleUrls: ["./item-list.component.scss"]
     })
-    export class UserlistComponent {}
+    export class ItemlistComponent {}
 
 You can provide html file in the **templateUrl** or you can alternatively provide inline html code to **template**-property. It's usually better to have the template in a separate file though.
 
     @Component({
-    selector: 'myapp-userlist',
+    selector: 'app-item-list',
     template: `
-        <div *ngFor="let user of users | async">
-            {{ user.name }}
+        <div *ngFor="let item of items | async">
+            {{ item.name }}
         </div>
     `,
-    styleUrls: ['./userlist.component.scss']
+    styleUrls: ['./item-list.component.scss']
     })
-    export class UserlistComponent {
-        users: Observable<User[]>;
+    export class ItemlistComponent {
+        items: Observable<Item[]>;
     }
 
 ## Service
@@ -138,8 +149,9 @@ An example of a project directory
     src/
         app/
             components/
-                header/
                 footer/
+                header/
+                item-list/
             containers/
                 main-page/
                 settings-page/
@@ -151,14 +163,14 @@ Data binding is a way to reflect data changes in one place to another place. The
 
 -   Interpolation – Bind component data to template **{{data}}**
 -   Property binding – Bind component data to a child component property, pass data to child component **[property]**
--   Event binding – Bind component to react a user event like mouse click or custom event **(event)**
+-   Event binding – Bind component to react to an user event like mouse click or custom event **(event)**
 -   Two-way binding – Component reacts to template event and also the template reflects what is happening in the component’s TypeScript-file **[(data)]**
 
-Example code with data binding:
+Examples of data binding:
 
-    INTERPLATION:       <li>{{ hero.nam e}}</li>
-    PROPERTY BINDING:   <app-hero-detail [hero]="selectedHero"></app-hero-detail>
-    EVENT BINDING:      <li (click)="selectHero(hero)"></li>
+    INTERPOLATION:      <li>{{ item.name }}</li>
+    PROPERTY BINDING:   <app-item-details [item]="selectedItem"></app-item-details>
+    EVENT BINDING:      <li (click)="selectItem(item)"></li>
 
 # Input() and Output()
 
@@ -166,23 +178,23 @@ If you want to pass down data to a child component with property binding, you ne
 
 If on the other hand you want to send data back to the parent component, the child component needs to emit the event and send data inside the $event object with EventEmitter.
 
-    export class UserlistComponent {
+    export class ItemlistComponent {
         @Input()
-        data: User[];
+        data: Item[];
 
         @Output()
-        itemClick: EventEmitter<User> = new EventEmitter();
+        itemClick: EventEmitter<Item> = new EventEmitter();
 
-        onClick(item: User) {
+        onClick(item: Item) {
             this.itemClick.emit(item);
         }
     }
 
 When creating a custom event ("itemClick" in this case), you then need to listen and react to it in the parent component:
 
-`<app-userlist (itemClick)="onItemClick($event)"></app-userlist>`
+`<app-item-list (itemClick)="onItemClick($event)"></app-item-list>`
 
-The $event object content depends on the event that is used. In this case it will be a "User" and it will be passed as an argument to a function in the parent component called "onItemClick" and now the parent component handles what to do with the selected user.
+The $event object content depends on the event that is used. In this case it will be a "Item" and it will be passed as an argument to a function in the parent component called "onItemClick" and now the parent component handles what to do with the selected item.
 
 # Directives and pipes
 
@@ -246,7 +258,7 @@ Getting an Angular app running is very easy. Install the following tools to star
 
 Angular uses npm - "world's largest software registry" - for dependency management. First install Node.js to get access to npm.
 
-    http://nodejs.com/
+-   http://nodejs.com/
 
 ## Angular CLI
 
@@ -257,11 +269,13 @@ Angular has a good command line tool for managing your project. Install it globa
     cd myapp
     ng serve
 
+-   https://cli.angular.io/
+
 ## Chrome and Redux DevTools
 
 For an application that utilizes ngrx/Store use Chrome extension called Redux DevTools to be able to view the state and what is happening in the store.
 
-    https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+-   https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
 
 # Exercises
 
@@ -322,6 +336,8 @@ Extract the translation file, translate it and run development server with langu
 # ngrx/Store
 
 ngrx/Store is a Redux inspired (https://redux.js.org/introduction) state management for Angular. In a larger application it is preferred to use something like ngrx to manage the state of the application.
+
+-   https://github.com/ngrx/platform
 
 Imagine the application state as a JavaScript object (key-value pairs) or a tree-like structure. Each key or branch in the state tree is a slice or feature of the state.
 
