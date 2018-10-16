@@ -64,12 +64,9 @@ If you have a large application, you can split features into modules and load th
 
 Components are reusable custom elements you throw in the html. You define a component's selector (element name in the html-template) in the component decorator metadata. You can change the component selector prefix inside angular.json settings file, it's app by default.
 
-Below is An example of some child components of "app component":
+Below is an example of some child components in app.component.html (the parent):
 
-    <!-- app.component.html -->
-    <app-header></app-header>
-    <app-item-list></app-item-list>
-    <app-footer></app-footer>
+`<app-header></app-header><app-item-list></app-item-list><app-footer></app-footer>`
 
 -   A component defines part of the application logic in it’s class
 -   A template defines component’s view
@@ -149,7 +146,7 @@ If on the other hand you want to send data back to the parent component, the chi
 
 When creating a custom event ("itemClick" in this case), you then need to listen and react to it in the parent component:
 
-    <app-userlist (itemClick)="onItemClick($event)"></app-userlist>
+`<app-userlist (itemClick)="onItemClick($event)"></app-userlist>`
 
 The $event object content depends on the event that is used. In this case it will be a "User" and it will be passed as an argument to a function in the parent component called "onItemClick" and now the parent component handles what to do with the selected user.
 
@@ -158,12 +155,12 @@ The $event object content depends on the event that is used. In this case it wil
 Directives modify the template dynamically. They are classes with @Directive() decorator. You can create your own directives or use Angular's default ones like *ngFor or *ngIf.
 Structural directives alter the DOM and are marked with \*.
 
-    <li *ngFor="let item of items">{{ item.name }}</li>
-    <app-item-details *ngIf="itemSelected"></app-item-details>
+`<li *ngFor="let item of items">{{ item.name }}</li>
+<app-item-details *ngIf="itemSelected"></app-item-details>`
 
 Pipes alter values in the template like date for example
 
-    <p>My birthday is {{ dateObject | date }}</p>
+`<p>My birthday is {{ dateObject | date }}</p>`
 
 # Routing
 
@@ -261,10 +258,9 @@ Angular has built in internalization tools that are very easy to use.
 
 Example of an usage of i18n attribute in a template:
 
-    <h1 i18n="site header|An introduction header for this sample@@introductionHeader">Hello i18n!</h1>
+`<h1 i18n="site header|An introduction header for this sample@@introductionHeader">Hello i18n!</h1>`
 
-    <!-- cheatsheet -->
-    <!-- i18n="context|information@@customid" -->
+    i18n="context|information@@customid"
 
 ## Exercise
 
@@ -295,7 +291,7 @@ One of the main benefits of the store is that the application state is in one pl
 
 For example, normally you would pass the data down to a child component with property binding like this:
 
-<child-component [data]="data"></child-component>
+`<child-component [data]="data"></child-component>`
 
 With store, you dispatch an action in the parent component that updates the state with the data. In the child component you subscribe to the particular "slice" of the state that holds the data that component is interested in.
 
