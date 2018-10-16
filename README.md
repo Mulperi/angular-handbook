@@ -49,7 +49,7 @@ Example of different kinds of decorators:
 
 ## Module
 
-Angular applications always have at least one module (root module). Modules can import other modules and declare components they are going to use. Modules are classes with @NgModule() decorator and .module.ts file extension.
+Angular applications are modular and always have at least one module (root module). Modules can import data from other modules and declare components they are going to use. Modules are classes with @NgModule() decorator and .module.ts file extension.
 
 If you have a large application, you can split features into modules and load them "lazily" - in other words: only when an user selects the feature. This greatly reduces your application's initial loading time. It is good practice to only load modules that are needed.
 
@@ -57,7 +57,9 @@ If you have a large application, you can split features into modules and load th
 
 Components are reusable custom elements you throw in the html. You define a component's selector (element name in the html-template) in the component decorator metadata. You can change the component selector prefix inside angular.json settings file, it's app by default.
 
-    <!-- app.component.ts -->
+Below is An example of some child components of "app component":
+
+    <!-- app.component.html -->
     <app-header></app-header>
     <app-item-list></app-item-list>
     <app-footer></app-footer>
@@ -89,7 +91,7 @@ When Angular creates an instance of a component, it checks the component constru
 # Folder structure
 
 -   Divide components to **Container components** and **Presentational components**
--   Container-components take care of the logic of a view
+-   Container components take care of the logic of a view
 -   Presentational components take care of how a view looks
 -   Makes it easier to maintain code and find a specific application logic
 
@@ -110,7 +112,7 @@ An example of a project directory
 Data binding is a way to reflect data changes in one place to another place. There are few different kinds of data binding with each having it's own syntax.
 
 -   Interpolation – Bind component data to template **{{data}}**
--   Property binding – Bind component data to an element property, send data to child component **[property]**
+-   Property binding – Bind component data to a child component property, pass data to child component **[property]**
 -   Event binding – Bind component to react a user event like mouse click or custom event **(event)**
 -   Two-way binding – Component reacts to template event and also the template reflects what is happening in the component’s TypeScript-file **[(data)]**
 
@@ -121,6 +123,28 @@ Example code with data binding:
     EVENT BINDING:      <li (click)="selectHero(hero)"></li>
 
 # Input() and Output()
+
+If you want to pass down data to a child component with property binding, you need to use Input() decorator in the child component's class.
+
+If on the other hand you want to send data back to the parent component, the child component needs to emit the event and send data inside the $event object with EventEmitter.
+
+    export class UserlistComponent {
+        @Input()
+        data: User[];
+
+        @Output()
+        itemClick: EventEmitter<User> = new EventEmitter();
+
+        onClick(item: User) {
+            this.itemClick.emit(item);
+        }
+    }
+
+When creating a custom event ("itemClick" in this case), you then need to listen and react to it in the parent component:
+
+    <app-userlist (itemClick)="onItemClick($event)"></app-userlist>
+
+The $event object content depends on the event that is used. In this case it will be a "User" and it will be passed as an argument to a function in the parent component called "onItemClick" and now the parent component handles what to do with the selected user.
 
 # Directives and pipes
 
@@ -147,6 +171,8 @@ Reactive programming is handling asynchronous data streams which can emit many v
 In Angular, HTTP-requests return an observable that can be subscribed and only then is the request actually made
 
 The selectors in ngrx/Store also return observables from the state tree. This way when your components subscribe to state changes, you can immediately see data change in the state reflecting to the component and the view.
+
+RxJS is included in Angular.
 
 -   RxJS - A JavaScript library for reactive programming using observables
 -   Observable - A way to communicate between two parties: publisher and subscriber
@@ -222,11 +248,23 @@ For an application that utilizes ngrx/Store use Chrome extension called Redux De
 
 # i18n
 
+"___Internationalization__ is the process of designing and preparing your app to be usable in different languages. __Localization__ is the process of translating your internationalized app into specific languages for particular locales._" - Angular.io
+
+Angular has built in internalization tools that are very easy to use.
+
+Example of an usage of i18n attribute in a template:
+
+    <h1 i18n="site header|An introduction header for this sample@@introductionHeader">Hello i18n!</h1>
+
+    <!-- cheatsheet -->
+    <!-- i18n="context|information@@customid" -->
+
 ## Exercise
 
--   Study i18n
+- Study Angular i18n tools (https://angular.io/guide/i18n)
+- Use i18n syntax in a template 
 
-Extract the translation file and run development server with language configuration:
+Extract the translation file, translate it and run development server with language configuration:
 
     ng xi18n --i18n-locale fr --output-path src/locale
     ng serve --configuration=fr --aot
