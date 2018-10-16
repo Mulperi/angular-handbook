@@ -9,6 +9,12 @@ Angular is a rapidly evolving JavaScript framework/platform for modern web appli
 -   https://angular.io/
 -   TypeScript/JavaScript, HTML, CSS/SCSS
 
+__Angular is not the same as AngularJS which is the first version of the framework and a whole different thing. When talking about just "Angular" we mean the latest version or Angular 2 and above.__
+
+## Angular vs others
+
+Angular is often compared to React, Vue.js or other UI libraries. One of the best arguments to go with Angular is that it is not just a library but a framework with all the tools you need to make your app from start to finish. It is "opinionated" in a way that you use all the tools Angular gives you like TypeScript language, Router, HttpClient for requests, RXjS and observables etc. You don't have to make these decisions yourself like with the lightweight libraries.
+
 # Single Page Application
 
 Single page application or SPA is a web page/application that offers a desktop application-like user experience. The content is updated dynamically with JavaScript so there is no page reload when you switch to another page or sub page. This is what you make with Angular.
@@ -17,7 +23,8 @@ Single page application or SPA is a web page/application that offers a desktop a
 
 -   Module
 -   Component
--   Template
+-   Template (belongs to a component)
+-   Directives
 -   Service
 -   Routing
 -   Store (optional)
@@ -109,7 +116,7 @@ An example of a project directory
 
 # Data binding
 
-Data binding is a way to reflect data changes in one place to another place. There are few different kinds of data binding with each having it's own syntax.
+Data binding is a way to reflect data changes in one place to another place. There are few different kinds of data binding with each having their own syntax.
 
 -   Interpolation – Bind component data to template **{{data}}**
 -   Property binding – Bind component data to a child component property, pass data to child component **[property]**
@@ -248,7 +255,7 @@ For an application that utilizes ngrx/Store use Chrome extension called Redux De
 
 # i18n
 
-"___Internationalization__ is the process of designing and preparing your app to be usable in different languages. __Localization__ is the process of translating your internationalized app into specific languages for particular locales._" - Angular.io
+> **Internationalization** is the process of designing and preparing your app to be usable in different languages. **Localization** is the process of translating your internationalized app into specific languages for particular locales. Angular.io
 
 Angular has built in internalization tools that are very easy to use.
 
@@ -261,8 +268,8 @@ Example of an usage of i18n attribute in a template:
 
 ## Exercise
 
-- Study Angular i18n tools (https://angular.io/guide/i18n)
-- Use i18n syntax in a template 
+-   Study Angular i18n tools (https://angular.io/guide/i18n)
+-   Use i18n syntax in a template
 
 Extract the translation file, translate it and run development server with language configuration:
 
@@ -298,14 +305,14 @@ With store, you dispatch an action in the parent component that updates the stat
 
 To update the state, you dispatch an **action**. **Reducer** listens to actions and return a new state if needed.
 
-**Effects** also listen to actions and do asynchronous tasks on the background. Like getting data from the server for example. Effects usually return new actions like "DATA_LOAD_SUCCESS".
+**Effects** also listen to actions and do asynchronous tasks on the background. Like getting data from the server via a service for example. Effects usually return new actions like "DATA_LOAD_SUCCESS". And those new actions again go to reducers and effects.
 
 With **selectors** you define wich part of the state tree you want to subscsribe to.
 
     ngrx/Store data flow (roughly)
 
     Action > Reducer > Store > View
-           > Effect > Service > Action > Reducer > Store > View
+           > Effect > Action
 
 ## Excercise
 
