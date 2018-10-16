@@ -1,6 +1,6 @@
-![alt text](angular_handbook.png "Angular Handbook")
+![alt text](angular_handbook.png "Mulperi's Angular Handbook")
 
-Learn Angular basics pronto.
+_Learn Angular basics pronto_
 
 __This handbook is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.__
 
