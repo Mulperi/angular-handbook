@@ -1,6 +1,8 @@
-# Mulperi's Angular Handbook
+![alt text](angular_handbook.png "Angular Handbook")
 
-Learn Angular basics quickly. This documentation is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.
+Learn Angular basics pronto.
+
+__This handbook is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.__
 
 # What is Angular?
 
