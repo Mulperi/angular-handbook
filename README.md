@@ -1,6 +1,6 @@
 # Mulperi's Angular Handbook
 
-Learn Angular basics quickly. This documentation is a work in progress and meant to be used when training new Angular developers along with the official documentation, examples and exercices.
+Learn Angular basics quickly. This documentation is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.
 
 # What is Angular?
 
@@ -9,7 +9,7 @@ Angular is a rapidly evolving JavaScript framework/platform for modern web appli
 -   https://angular.io/
 -   TypeScript/JavaScript, HTML, CSS/SCSS
 
-__Angular is not the same as AngularJS which is the first version of the framework and a whole different thing. When talking about just "Angular" we mean the latest version or Angular 2 and above.__
+**Angular is not the same as AngularJS which is the first version of the framework and a whole different thing. When talking about just "Angular" we mean the latest version or Angular 2 and above.**
 
 ## Angular vs others
 
@@ -56,13 +56,23 @@ Example of different kinds of decorators:
 
 ## Module
 
-Angular applications are modular and always have at least one module (root module). Modules can import data from other modules and declare components they are going to use. Modules are classes with @NgModule() decorator and .module.ts file extension.
+Angular applications are modular and always have at least one module: the root module. Modules can import data from other modules and declare components they are going to use. Modules are classes with @NgModule() decorator and **.module.ts** file extension.
 
 If you have a large application, you can split features into modules and load them "lazily" - in other words: only when an user selects the feature. This greatly reduces your application's initial loading time. It is good practice to only load modules that are needed.
 
+NgModule() decorator takes in an object with following properties (from https://angular.io/guide/architecture-modules):
+
+-   declarations: The components, directives, and pipes that belong to this NgModule.
+-   imports: Other modules whose exported classes are needed by component templates declared in this NgModule.
+-   exports: The subset of declarations that should be visible and usable in the component templates of other NgModules.
+-   providers: Creators of services that this NgModule contributes to the global collection of services; they become accessible in all parts of the app. (You can also specify providers at the component level, which is often preferred.)
+-   bootstrap: The main application view, called the root component, which hosts all other app views. Only the root NgModule should set the bootstrap property.
+
 ## Component and a view
 
-Components are reusable custom elements you throw in the html. You define a component's selector (element name in the html-template) in the component decorator metadata. You can change the component selector prefix inside angular.json settings file, it's app by default.
+Components are reusable custom elements you throw in the html. You define a component's selector (element name) in the Component() decorator metadata. Components have **.component.ts** file extension.
+
+> You can change the component selector prefix inside angular.json settings file, it's app by default. You can also set the prefix when creating a new project: **ng new myapp --prefix myprefix**
 
 Below is an example of some child components in app.component.html (the parent):
 
@@ -74,11 +84,35 @@ Below is an example of some child components in app.component.html (the parent):
 -   A component is it’s **.ts**, **.html** and **.scss** files
 -   .ts (class and component logic) & .html (template) & .scss (styles)
 
+Example of a simple component.ts file with @Component() decorator:
+
+    @Component({
+        selector: "myapp-userlist",
+        templateUrl: "./userlist.component.html",
+        styleUrls: ["./userlist.component.scss"]
+    })
+    export class UserlistComponent {}
+
+You can provide html file in the **templateUrl** or you can alternatively provide inline html code to **template**-property. It's usually better to have the template in a separate file though.
+
+    @Component({
+    selector: 'myapp-userlist',
+    template: `
+        <div *ngFor="let user of users | async">
+            {{ user.name }}
+        </div>
+    `,
+    styleUrls: ['./userlist.component.scss']
+    })
+    export class UserlistComponent {
+        users: Observable<User[]>;
+    }
+
 ## Service
 
 A service is a class with distinct purpose. A component delegates certain actions to a service. Like getting data from a server for example. If you are using a store in your application you usually want to call service from an **effect** and not from the component.
 
-A service is a class with @Injectable() decorator. In it's metadata you tell Angular where you want to provide the service.
+A service is a class with @Injectable() decorator and **.service.ts** file extension. In it's metadata you tell Angular where you want to provide the service.
 
     @Injectable({
          providedIn: 'root'
@@ -155,12 +189,13 @@ The $event object content depends on the event that is used. In this case it wil
 Directives modify the template dynamically. They are classes with @Directive() decorator. You can create your own directives or use Angular's default ones like *ngFor or *ngIf.
 Structural directives alter the DOM and are marked with \*.
 
-`<li *ngFor="let item of items">{{ item.name }}</li>
-<app-item-details *ngIf="itemSelected"></app-item-details>`
+`<li *ngFor="let item of items">{{ item.name }}</li> <app-item-details *ngIf="itemSelected"></app-item-details>`
 
 Pipes alter values in the template like date for example
 
 `<p>My birthday is {{ dateObject | date }}</p>`
+
+> Use **async** pipe to subscribe to an observable from the template! This way you don't need to worry about unsubscribing and the component.ts file stays nice and clean.
 
 # Routing
 
@@ -170,15 +205,27 @@ You can also route to a lazily loaded module that has it's own routing configura
 
 # Observable
 
-Reactive programming is handling asynchronous data streams which can emit many values over time. You can create a stream from almost anything.
+Reactive programming is handling asynchronous data streams which can emit many values over time. You can create a stream from almost anything. RxJS - A JavaScript library for reactive programming using observables is included in Angular. For example, HTTP-requests return an observable that can be subscribed and only then is the request actually made
 
-In Angular, HTTP-requests return an observable that can be subscribed and only then is the request actually made
+> _An Observable instance begins publishing values only when someone subscribes to it. You subscribe by calling the subscribe() method of the instance, passing an observer object to receive the notifications._ [Angular.io](https://angular.io/guide/observables)
+
+Example of an observer object passed to a subscribe method:
+
+    myObservable.subscribe({
+        next: x => console.log('Observer got a next value: ' + x),
+        error: err => console.error('Observer got an error: ' + err),
+        complete: () => console.log('Observer got a complete notification'),
+    });
+
+To make this code shorter, you can pass in 1-3 of the functions in order like this:
+
+    myObservable.subscribe(
+        x => console.log(x),
+        err => console.error(err)
+    );
 
 The selectors in ngrx/Store also return observables from the state tree. This way when your components subscribe to state changes, you can immediately see data change in the state reflecting to the component and the view.
 
-RxJS is included in Angular.
-
--   RxJS - A JavaScript library for reactive programming using observables
 -   Observable - A way to communicate between two parties: publisher and subscriber
 -   Operators - tools to modify the stream like combine or concatenate several data streams for example
 
@@ -252,7 +299,7 @@ For an application that utilizes ngrx/Store use Chrome extension called Redux De
 
 # i18n
 
-> **Internationalization** is the process of designing and preparing your app to be usable in different languages. **Localization** is the process of translating your internationalized app into specific languages for particular locales. Angular.io
+> _**Internationalization** is the process of designing and preparing your app to be usable in different languages. **Localization** is the process of translating your internationalized app into specific languages for particular locales._ [Angular.io](https://angular.io/guide/i18n)
 
 Angular has built in internalization tools that are very easy to use.
 
@@ -310,7 +357,7 @@ With **selectors** you define wich part of the state tree you want to subscsribe
     Action > Reducer > Store > View
            > Effect > Action
 
-## Excercise
+## Exercise
 
     npm i @ngrx/store @ngrx/router-store @ngrx/effects @ngrx/store-devtools ngrx-store-freeze
 
