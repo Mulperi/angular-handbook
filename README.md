@@ -2,7 +2,7 @@
 
 _Learn Angular basics pronto_
 
-__This handbook is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.__
+This handbook is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.
 
 # What is Angular?
 
@@ -141,10 +141,10 @@ When Angular creates an instance of a component, it checks the component constru
 
 # Folder structure
 
--   Divide components to **Container components** and **Presentational components**
--   Container components take care of the logic of a view
--   Presentational components take care of how a view looks
--   Makes it easier to maintain code and find a specific application logic
+There are different kinds of conventions on how to arrange your project directory. It's best to try to keep it organized and one way to help you do that is if you divide your components to **container components** and **presentational components**. This makes it easier to maintain code and find a specific application logic since most of the communication with the store or service, for example, is happening with the containers that pass down necessary data to the presentational components.
+
+> _Container components are concerned with how things work. Presentational components are concerned with how things look._ [Dan Abramov](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+
 
 An example of a project directory
 
