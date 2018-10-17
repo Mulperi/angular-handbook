@@ -2,7 +2,7 @@
 
 _Learn Angular basics pronto_
 
-This handbook is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.
+__This handbook is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.__
 
 # What is Angular?
 
