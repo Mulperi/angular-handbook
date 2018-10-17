@@ -176,9 +176,9 @@ Examples of data binding:
 
 # Input() and Output()
 
-If you want to pass down data to a child component with property binding, you need to use Input() decorator in the child component's class.
+If you want to pass down data to a child component with property binding, you need to use __@Input()__ decorator in the child component's class.
 
-If on the other hand you want to send data back to the parent component, the child component needs to emit the event and send data inside the $event object with EventEmitter.
+If on the other hand you want to send data back to the parent component, the child component needs to emit the event and send data inside the $event object with EventEmitter using __@Output()__ decorator.
 
     export class ItemlistComponent {
         @Input()
@@ -196,7 +196,7 @@ When creating a custom event ("itemClick" in this case), you then need to listen
 
 `<app-item-list (itemClick)="onItemClick($event)"></app-item-list>`
 
-The $event object content depends on the event that is used. In this case it will be a "Item" and it will be passed as an argument to a function in the parent component called "onItemClick" and now the parent component handles what to do with the selected item.
+The contents of an $event object depends on the event that is used. In this case it will be a "Item" that's passed as an argument to a function in the parent component called "onItemClick" and from that point it's up to the parent component to deal with the event and it's data.
 
 # Directives and pipes
 
