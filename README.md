@@ -2,7 +2,7 @@
 
 _Learn Angular basics pronto_
 
-__This handbook is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.__
+**This handbook is a work in progress and meant to be used when training new Angular developers alongside with the official documentation, examples and exercices.**
 
 # What is Angular?
 
@@ -145,7 +145,6 @@ There are different kinds of conventions on how to arrange your project director
 
 > _Container components are concerned with how things work. Presentational components are concerned with how things look._ [Dan Abramov](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
 
-
 An example of a project directory
 
     src/
@@ -176,9 +175,9 @@ Examples of data binding:
 
 # Input() and Output()
 
-If you want to pass down data to a child component with property binding, you need to use __@Input()__ decorator in the child component's class.
+If you want to pass down data to a child component with property binding, you need to use **@Input()** decorator in the child component's class.
 
-If on the other hand you want to send data back to the parent component, the child component needs to emit the event and send data inside the $event object with EventEmitter using __@Output()__ decorator.
+If on the other hand you want to send data back to the parent component, the child component needs to emit the event and send data inside the $event object with EventEmitter using **@Output()** decorator.
 
     export class ItemlistComponent {
         @Input()
@@ -260,6 +259,8 @@ Getting an Angular app running is very easy. Install the following tools to star
 
 Angular uses npm - "world's largest software registry" - for dependency management. First install Node.js to get access to npm.
 
+See **package.json** file for project dependencies and scripts.
+
 -   http://nodejs.com/
 
 ## Angular CLI
@@ -270,6 +271,8 @@ Angular has a good command line tool for managing your project. Install it globa
     ng new myapp --style scss --prefix myapp
     cd myapp
     ng serve
+
+> If you are jumping into on-going project, you may not want to use ng serve to start the development server. See package.json for start script, it's usually __npm start__.
 
 -   https://cli.angular.io/
 
@@ -330,9 +333,12 @@ Example of an usage of i18n attribute in a template:
 -   Study Angular i18n tools (https://angular.io/guide/i18n)
 -   Use i18n syntax in a template
 
-Extract the translation file, translate it and run development server with language configuration:
+Extract the translation file, translate it and run development server with language configuration (you need to add the configuration to angular.json first too, see documentation for details):
 
-    ng xi18n --i18n-locale fr --output-path src/locale
+    ng xi18n --i18n-locale fr --output-path locale --out-file messages.fr.xlf
+
+Now, below all the `<source>` elements, add corresponding `<target>` elements and add the translated text inside.
+
     ng serve --configuration=fr --aot
 
 # ngrx/Store
