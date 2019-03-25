@@ -6,21 +6,17 @@
 
 ## What is Angular?
 
-Angular is a rapidly evolving JavaScript framework/platform for modern web application development. It is open-source and led by Google's Angular Team. To be able to understand and do Angular development, you should know the basics of HTML, CSS and JavaScript.
+[Angular](https://angular.io/) is a rapidly evolving JavaScript framework/platform for modern web application development. It is open-source and led by Google's Angular Team. To be able to understand and do Angular development, you should know the basics of HTML, CSS and JavaScript.
 
 The programming languages used in Angular development are TypeScript/JavaScript, HTML, CSS/SCSS.
 
 **Angular is not the same as AngularJS which is the first version of the framework and a whole different thing. When talking about just "Angular" we mean the latest version or Angular 2 and above.**
 
--   https://angular.io/
-
 ### TypeScript
 
-TypeScript is the programming language used in Angular development. It's open-source and maintained by Microsoft. TypeScript is a superset of JavaScript which means that basic JavaScript code is also valid TypeScript. TypeScript is transcompiled to JavaScript.
+[TypeScript](https://www.typescriptlang.org/) is the programming language used in Angular development. It's open-source and maintained by Microsoft. TypeScript is a superset of JavaScript which means that basic JavaScript code is also valid TypeScript. TypeScript is transcompiled to JavaScript.
 
 > The biggest advantages of using TypeScript is the addition of static typing, even though it's optional and the ability to use advanced JavaScript features that are compiled down to a cross-browser friendly form. Basically you get cleaner code and catch error's early in development with TypeScript.
-
--   https://www.typescriptlang.org/
 
 ### Angular vs others
 
@@ -28,9 +24,7 @@ Angular is often compared to React, Vue.js or other UI libraries. One of the bes
 
 ### Single Page Application
 
-Single page application or SPA is a web page/application that offers a desktop application-like user experience. The content is updated dynamically with JavaScript so there is no page reload when you switch to another page or sub page. This is what you make with Angular.
-
--   https://en.wikipedia.org/wiki/Single-page_application
+[Single page application](https://en.wikipedia.org/wiki/Single-page_application) or SPA is a web page/application that offers a desktop application-like user experience. The content is updated dynamically with JavaScript so there is no page reload when you switch to another page or sub page. This is what you make with Angular.
 
 ## Building blocks of an Angular app
 
@@ -71,7 +65,7 @@ Example of different kinds of decorators:
 
 Angular applications are modular and always have at least one module: the root module. Modules can import data from other modules and declare components they are going to use. Modules are classes with `@NgModule()` decorator and `.module.ts` file extension.
 
-If you have a large application, you can split features into modules and load them "lazily" - in other words: only when an user selects the feature. This greatly reduces your application's initial loading time. It is good practice to only load modules that are needed.
+If you have a large application, you can split features into modules and load them "lazily" - in other words: only when an user selects the feature. This greatly reduces your application's initial loading time. It is good practice to only load modules that are needed or load them in the background with `PreloadAllModules` preloading strategy.
 
 NgModule() decorator takes in an object with following properties (from https://angular.io/guide/architecture-modules):
 
@@ -98,8 +92,8 @@ Below is an example of some child components in app.component.html (the parent):
 
 -   A component defines part of the application logic in it’s class
 -   A template defines component’s view
--   A template is regular html with Angular template-syntax
--   A component is it’s **.ts** (class and component logic), **.html** (template/view) and **.scss** (styles) files
+-   A template is regular html with Angular's own template-syntax
+-   A component is it’s `.ts` (class definition and component logic), `.html` (template/view) and `.scss` (styles) files
 
 Example of a simple component.ts file with @Component() decorator:
 
@@ -179,7 +173,7 @@ Examples of data binding:
 
 ## Input() and Output()
 
-If you want to pass down data to a child component, you need to use **@Input()** decorator in the child component's class. The input property name will be used as an attribute in the template side.
+If you want to pass down data to a child component, you need to use `@Input()` decorator in the child component's class. The input property name will be used as an attribute in the template side.
 
     <!-- Passing string to welcomeMessage input -->
     <my-component welcomeMessage="Hello">
@@ -187,7 +181,7 @@ If you want to pass down data to a child component, you need to use **@Input()**
     <!-- Passing an expression/variable named Hello to input -->
     <my-component [welcomeMessage]="Hello">
 
-If on the other hand you want to send data back to the parent component, the child component needs to emit the event and send data inside the \$event object with EventEmitter using **@Output()** decorator.
+If on the other hand you want to send data back to the parent component, the child component needs to emit the event and send data inside the \$event object with EventEmitter using `@Output()` decorator.
 
     export class ItemlistComponent {
         @Input()
@@ -208,11 +202,11 @@ When creating a custom event ("itemClick" in this case), you then need to listen
 </app-item-list>
 ```
 
-The contents of an \$event object depends on the event that is used. In this case it will be a "Item" that's passed as an argument to the `emit()` method. From that point it's up to the parent component to deal with the event and it's data.
+The contents of an \$event object depends on the event that is used. In this case it will be a "Item" that's passed as an argument to the `emit()` method. Then it's up to the parent component to deal with the event and it's data in it's `onItemClick()` method.
 
 ## Directives and pipes
 
-Directives modify the template dynamically. They are classes with `@Directive()` decorator. You can create your own directives or use Angular's default ones like *ngFor or *ngIf.
+Directives modify the template dynamically. Their functionalities are defined in a class with `@Directive()` decorator. You can create your own directives or use Angular's default ones like *ngFor or *ngIf.
 Structural directives alter the DOM and are marked with \*.
 
 ```
@@ -226,7 +220,7 @@ Pipes alter values in the template like date for example
 <p>My birthday is {{ dateObject | date }}</p>
 ```
 
-> Use `async` pipe to subscribe to an observable from the template! This way you don't need to worry about unsubscribing and the component.ts file stays nice and clean.
+> Use `async` pipe to subscribe to an Observable from the template! This way you don't need to worry about unsubscribing and the component.ts file stays nice and clean.
 
 ## Routing
 
@@ -236,11 +230,13 @@ You can also route to a lazily loaded module that has it's own routing configura
 
 ## Observable
 
-Reactive programming is handling asynchronous data streams which can emit many values over time. You can create a stream from almost anything. RxJS - A JavaScript library for reactive programming using observables is included in Angular. For example, HTTP-requests return an observable that can be subscribed and only then is the request actually made
+Reactive programming is handling asynchronous data streams which can emit many values over time. You can create a stream from almost anything. [RxJS](https://rxjs-dev.firebaseapp.com/guide/overview) - A JavaScript library for reactive programming using Observables is included in Angular. For example, HTTP-requests return an Observable that can be subscribed to by calling the `subscribe()` method of the Observable and only then is the request actually made.
+
+This concept is important to understand. Like [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) in JavaScript, [Observables](https://rxjs-dev.firebaseapp.com/guide/observable) too are objects that you can pass around within your application and are just representations of an asynchronous operation. The request that is related to that specific object is executed when you call the subscribe method.
 
 > _An Observable instance begins publishing values only when someone subscribes to it. You subscribe by calling the subscribe() method of the instance, passing an observer object to receive the notifications._ [Angular.io](https://angular.io/guide/observables)
 
-Example of an observer object passed to a subscribe method:
+Example of an [Observer](https://rxjs-dev.firebaseapp.com/api/index/interface/Observer) object passed to a subscribe method to handle incoming data, errors or stream completion:
 
     myObservable.subscribe({
         next: x => console.log('Observer got a next value: ' + x),
@@ -255,37 +251,35 @@ To make this code shorter, you can pass in 1-3 of the functions in order like th
         err => console.error(err)
     );
 
-The selectors in ngrx/Store also return observables from the state tree. This way when your components subscribe to state changes, you can immediately see data change in the state reflecting to the component and the view.
+The selectors in NgRx also return observables from the state tree. This way when your components subscribe to state changes, you can immediately see data change in the state reflecting to the component and the view.
 
 -   Observable - A way to communicate between two parties: publisher and subscriber
 -   Operators - tools to modify the stream like combine or concatenate several data streams for example
-
-Read more about [RxJS](https://rxjs-dev.firebaseapp.com/guide/overview) and [observables](https://rxjs-dev.firebaseapp.com/guide/observable).
 
 ## Tools
 
 Getting an Angular app running is very easy. Install the following tools to start development.
 
--   Chrome & Redux Devtools extension
--   Node.js (& npm)
+-   Chrome & [Redux DevTools extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
+-   [Node.js](https://nodejs.org/en/)
 -   Angular CLI
 
 ### Node.js and npm
 
-Angular uses npm - "world's largest software registry" - for dependency management. First install [Node.js](https://nodejs.org/en/) to get access to npm.
+Angular uses npm - "world's largest software registry" - for dependency management. First install to get access to npm.
 
 See file `package.json` for project dependencies and scripts.
 
 ### Angular CLI
 
-Angular has a good [command line interface](https://cli.angular.io/) for managing your project. Install it globally via npm.
+Angular has a good [command line interface](https://cli.angular.io/) for managing your project. Install it globally via npm and then create and run new project.
 
     npm install -g @angular/cli
     ng new myapp --style scss --prefix myapp
     cd myapp
     ng serve
 
-> If you are jumping into on-going project, you may not want to use ng serve to start the development server. See package.json for start script, it's usually `npm start`.
+> If you are jumping into on-going project, you may not want to use ng serve to start the development server. See `package.json` for start script, it's usually `npm start`.
 
 ### Chrome and Redux DevTools
 
@@ -308,7 +302,7 @@ For an application that utilizes NgRx/Store use Chrome extension called [Redux D
 -   Create mock data (JSON) in to assets folder and request it with HttpClient inside the service
 -   Use event binding in a component
 -   Use service inside a component
--   Subscribe to a observable inside a component or a template and compare the differences (remember to unsubscribe if you subscribe in component)
+-   Subscribe to an Observable inside a component or a template and compare the differences (remember to unsubscribe if you subscribe in component)
 -   Use structural directives *ngFor and *ngIf
 -   Use conditional styling in a template [class.active]="boolean”
 
@@ -317,7 +311,7 @@ For an application that utilizes NgRx/Store use Chrome extension called [Redux D
 -   Try communication between components using @Input and @Output
 -   Use property binding to send data to a child component
 -   Use EventEmitter to emit a custom event and react to it in the parent component
--   Study [observable](https://rxjs-dev.firebaseapp.com/guide/observable)
+-   Study [Observable](https://rxjs-dev.firebaseapp.com/guide/observable)
 
 ### Exercise 4
 
